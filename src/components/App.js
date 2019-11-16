@@ -3,6 +3,31 @@ import logo from '../u-said-be-prepared.png';
 import './App.css';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { 
+      buffer : null 
+    };
+  }
+
+  captureFile = (event) => {
+    event.preventDefault()
+    console.log('meme uploaded...')
+    // file processing for store to IPFS
+    const file = event.target.files[0]
+    const fileReader = new window.FileReader()
+    fileReader.readAsArrayBuffer(file)
+    fileReader.onloadend = () => {
+      this.setState({buffer: Buffer(fileReader.result)})      
+    }    
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault()
+    console.log("Submitting the form...")
+  }
+
   render() {
     return (
       <div>
@@ -29,8 +54,8 @@ class App extends Component {
                 </a>
                 <p>&nbsp;</p>
                 <h2>Upload Meme</h2>
-                <form >
-                <input type='file' />
+                <form onSubmit={this.onSubmit}>
+                <input type='file' onChange={this.captureFile} />
                 <input type='submit' />
                 </form>
               </div>
