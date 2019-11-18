@@ -36,6 +36,8 @@ class App extends Component {
         console.error(error)
         return
       }
+      //TO DO: next is to store file on blockchain
+      //IPFS: http://ipfs.infura.io/ipfs/QmWERhDH1PLhYAeRLQQ8Cc9ykmi8XUvsBeEXgZcwQ3fAuL
     })
   }
 
