@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../u-said-be-prepared.png';
 import './App.css';
 
 const ipfsClient = require('ipfs-http-client')
@@ -11,7 +10,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      buffer : null 
+      buffer : null,
+      fileHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM' 
     };
   }
 
@@ -32,6 +32,8 @@ class App extends Component {
     console.log("Submitting the form...")
     ipfs.add(this.state.buffer, (error, result) => {
       console.log('Ipfs result', result)
+      const fileHash = result[0].hash
+      this.setState({fileHash})
       if(error) {
         console.error(error)
         return
@@ -63,7 +65,7 @@ class App extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={logo} className="App-logo" alt="logo" />
+                  <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
                 </a>
                 <p>&nbsp;</p>
                 <h2>Upload Meme</h2>
