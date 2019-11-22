@@ -25,7 +25,7 @@ Compiling ./src/contracts/FilesHandler.sol...
   Contract: FilesHandler
     deployment
 0xAEe9E8E2bFDc1611b40afBD46a276c07A0821a65
-      ✓ deploys successfully
+      ✓ contract deployed successfully
 
 
   1 passing (87ms)
