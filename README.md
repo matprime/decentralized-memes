@@ -4,8 +4,12 @@
 Demonstration will be done using Ethereum blockchain and IPFS
 
 **Dependencies are:**
+- Node.js
 - Truffle
+- Web3.js
+- IPFS
 - Ganache
+- Metamask
 
 
 
