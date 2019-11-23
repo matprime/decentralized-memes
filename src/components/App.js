@@ -14,6 +14,11 @@ class App extends Component {
     await this.loadWeb3()
   }
 
+  // Get the account
+  // Get the network
+  // Get Smart contract
+  // Get File Hash
+
   constructor(props) {
     super(props);
     this.state = { 
