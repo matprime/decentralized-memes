@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Web3 from 'web3';
 import './App.css';
 
 const ipfsClient = require('ipfs-http-client')
@@ -7,12 +8,29 @@ const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https' }
 
 class App extends Component {
 
+  //React life-cycle event, we gonna use it to connect app to blockchain
+  //https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
+  async componentWillMount() {
+    await this.loadWeb3()
+  }
+
   constructor(props) {
     super(props);
     this.state = { 
       buffer : null,
       fileHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM' 
     };
+  }
+
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    } if (window.web3) {      
+      window.web3 = new Web3(window.web3.currentProvider)
+    } else {
+      window.alert('To work correctly, please use metamask!')
+    }
   }
 
   captureFile = (event) => {
