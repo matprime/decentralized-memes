@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
+import FilesHandler from '../abis/FilesHandler.json'
 
 const ipfsClient = require('ipfs-http-client')
 // connect to public ipfs daemon API server
@@ -12,6 +13,7 @@ class App extends Component {
   //https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
   async componentWillMount() {
     await this.loadWeb3()
+    await this.initializeFile()
   }
 
   // Get the account
@@ -19,10 +21,34 @@ class App extends Component {
   // Get Smart contract
   // Get File Hash
 
+  //get information about file from blockchain to show it in app start
+  async initializeFile() {
+    const web3 = window.web3
+    //https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#getaccounts
+    const accounts = await web3.eth.getAccounts()
+    console.log('Using account in Metamask: ' + accounts)
+    this.setState({ account: accounts[0]})
+    const networkId = await web3.eth.net.getId()
+    console.log('Metamask is connected to: ' + networkId)
+    const networkData = FilesHandler.networks[networkId]
+    if (networkData) {
+      //fetching the contract
+      const abi = FilesHandler.abi
+      const address = networkData.address      
+      const contract = web3.eth.Contract(abi, address)
+      this.setState({contract})
+      console.log(contract)
+    } else {
+      window.alert('Smart contract was not deployed to connected network!');
+    }
+  }
+
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
+      account: '', 
       buffer : null,
+      contract: null,
       fileHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM' 
     };
   }
@@ -78,6 +104,11 @@ class App extends Component {
           >
             Prime Memes
           </a>
+          <ul className="navbar-nav px-3">
+            <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
+            <small className="text-white">{this.state.account}</small>
+            </li>
+          </ul>
         </nav>
         <div className="container-fluid mt-5">
           <div className="row">
