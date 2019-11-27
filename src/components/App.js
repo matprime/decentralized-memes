@@ -21,7 +21,7 @@ class App extends Component {
   // Get Smart contract
   // Get File Hash
 
-  //get information about file from blockchain to show it in app start
+  //get file hash from blockchain to show file when app starts
   async initializeFile() {
     const web3 = window.web3
     //https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#getaccounts
@@ -38,6 +38,9 @@ class App extends Component {
       const contract = web3.eth.Contract(abi, address)
       this.setState({contract})
       console.log(contract)
+      //calling get function from smart contract
+      const fileHash = await contract.methods.get().call()
+      this.setState({fileHash})
     } else {
       window.alert('Smart contract was not deployed to connected network!');
     }
@@ -79,6 +82,7 @@ class App extends Component {
   onSubmit = (event) => {
     event.preventDefault()
     console.log("Submitting the form...")
+    //IPFS: http://ipfs.infura.io/ipfs/QmWERhDH1PLhYAeRLQQ8Cc9ykmi8XUvsBeEXgZcwQ3fAuL
     ipfs.add(this.state.buffer, (error, result) => {
       console.log('Ipfs result', result)
       const fileHash = result[0].hash
@@ -87,8 +91,10 @@ class App extends Component {
         console.error(error)
         return
       }
-      //TO DO: next is to store file on blockchain
-      //IPFS: http://ipfs.infura.io/ipfs/QmWERhDH1PLhYAeRLQQ8Cc9ykmi8XUvsBeEXgZcwQ3fAuL
+      //storing file hash on blockchain      
+      this.state.contract.methods.set(fileHash).send({ from: this.state.account }).then((r) => {
+        this.setState({fileHash})
+      })
     })
   }
 
