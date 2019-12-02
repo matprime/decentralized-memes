@@ -5,13 +5,18 @@ Demonstration will be done using Ethereum blockchain and IPFS
 
 **Dependencies are:**
 - Node.js 10.1x.x
-> dowload from nodejs.org and follow installation instructions
+> download from nodejs.org and follow installation instructions
 - Truffle
-> npm install -g truffle@5.0.5
+> npm install -g truffle@5.0.5 (important is to use this version)
 - Web3.js
 - IPFS
 - Ganache
-- Metamask
+- Metamask extension from Google Chrome web store
+
+**Installation procedure**
+```shell
+git clone https://github.com/matprime/decentralized-memes
+```
 
 **Some commands you can use in truffle console**
 After smart contracts deployment to blockchain with migration, you can use truffle console to interact with smart contracts using CLI. To start truffle console from command shell type:
