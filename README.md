@@ -5,9 +5,9 @@ Demonstration will be done using Ethereum blockchain and IPFS
 
 **Dependencies are:**
 - Node.js 10.1x.x
-dowload from nodejs.org and follow installation instructions
+> dowload from nodejs.org and follow installation instructions
 - Truffle
-npm install -g truffle@5.0.5
+> npm install -g truffle@5.0.5
 - Web3.js
 - IPFS
 - Ganache
