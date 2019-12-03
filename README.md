@@ -16,7 +16,11 @@ Demonstration will be done using Ethereum blockchain and IPFS
 **Installation procedure**
 ```shell
 git clone https://github.com/matprime/decentralized-memes
+cd decentralized-memes
+npm install
+npm run start
 ```
+You should see browser to open up and application will load in browser window.
 
 **Some commands you can use in truffle console**
 After smart contracts deployment to blockchain with migration, you can use truffle console to interact with smart contracts using CLI. To start truffle console from command shell type:
