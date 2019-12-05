@@ -24,7 +24,13 @@ npm run start
 ```
 Before starting the application with last command "npm run start" you need to make sure that Ganache is running before. Please look into Ganache manual, how to start it. After Ganache is running and you started application, you should see web browser to open up and application will load in browser window.
 
-**Some commands you can use in truffle console**
+**Command to migrate smart contract to blockchain**
+```shell
+truffle migration
+```
+After succesfull migration of smart contract to blockhain you can interact with him using truffle console.
+
+**Some commands you can use with truffle console**
 After smart contracts deployment to blockchain with migration, you can use truffle console to interact with smart contracts using CLI. To start truffle console from command shell type:
 ```shell
 truffle console
