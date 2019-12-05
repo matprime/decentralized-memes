@@ -22,7 +22,7 @@ cd decentralized-memes
 npm install
 npm run start
 ```
-You should see browser to open up and application will load in browser window.
+Before starting the application with last command "npm run start" you need to make sure that Ganache is running before. Please look into Ganache manual, how to start it. After Ganache is running and you started application, you should see web browser to open up and application will load in browser window.
 
 **Some commands you can use in truffle console**
 After smart contracts deployment to blockchain with migration, you can use truffle console to interact with smart contracts using CLI. To start truffle console from command shell type:
