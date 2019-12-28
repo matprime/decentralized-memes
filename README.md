@@ -7,12 +7,15 @@ You will be able to select a file from your computer and upload it to IPFS. Info
 
 **Dependencies are:**
 - Node.js 10.1x.x
-> download from nodejs.org and follow installation instructions
+> download from https://nodejs.org and follow installation instructions
 - Truffle
 > npm install -g truffle@5.0.5 (important is to use this version)
 - Web3.js
 - IPFS
 - Ganache
+> donwnload from https://www.trufflesuite.com/ganache
+> change the permission of file to be executable: chmod u+x ganache-2.1.2-linux-x86_64.AppImage
+> then run it with double click from GUI or from terminal window: ./ganache-2.1.2-linux-x86_64.AppImage
 - Metamask extension from Google Chrome web store
 
 **Installation procedure**
