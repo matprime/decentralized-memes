@@ -129,10 +129,10 @@ class App extends Component {
                   <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
                 </a>
                 <p>&nbsp;</p>
-                <h2>Upload Meme</h2>
+                <h2>Select your meme and upload it</h2>
                 <form onSubmit={this.onSubmit}>
                 <input type='file' onChange={this.captureFile} />
-                <input type='submit' />
+                <input type='submit' value="Upload meme"/>
                 </form>
               </div>
             </main>
