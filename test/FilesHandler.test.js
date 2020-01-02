@@ -21,16 +21,30 @@ contract('FilesHandler', (accounts) => {
 		})
 	})
 
-	//test if setter and getter in contract are working
-	describe('storage access', async () => {
+	//test if simple file setter and getter are working in contract
+	describe('file storage access', async () => {
 		it('Hash saved and retrieved', async () => {
 			let fileHash
-			fileHash = 'test123'
+			fileHash = 'file123'
 			console.log('Saving and retrieveing from Blockhain')
-			await filesHandler.set(fileHash)
-			const result = await filesHandler.get()
+			await filesHandler.setFileHash(fileHash)
+			const result = await filesHandler.getFileHash()
 			console.log(result)
 			assert.equal(result, fileHash)
 		})
 	})
+
+	//test if meme setter and getter are working in contract
+	describe('meme storage access', async () => {
+		it('Meme hash saved and retrieved', async () => {
+			let fileHash
+			fileHash = 'meme123'
+			console.log('Saving and retrieveing from Blockhain')
+			await filesHandler.createMeme(fileHash)
+			const result = await filesHandler.getMemeHash()
+			console.log(result)
+			assert.equal(result, fileHash)
+		})
+	})
+
 })

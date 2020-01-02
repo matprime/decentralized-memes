@@ -34,12 +34,13 @@ class App extends Component {
     if (networkData) {
       //fetching the contract
       const abi = FilesHandler.abi
-      const address = networkData.address      
+      const address = networkData.address
       const contract = web3.eth.Contract(abi, address)
       this.setState({contract})
       console.log(contract)
       //calling get function from smart contract
-      const fileHash = await contract.methods.get().call()
+      const fileHash = await contract.methods.getFileHash().call()
+      console.log("File hash: " + fileHash)
       this.setState({fileHash})
     } else {
       window.alert('Smart contract was not deployed to connected network!');
@@ -49,10 +50,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      account: '', 
+      account: '',
       buffer : null,
       contract: null,
-      fileHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM' 
+      fileHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM'
     };
   }
 
@@ -60,7 +61,7 @@ class App extends Component {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
-    } if (window.web3) {      
+    } if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider)
     } else {
       window.alert('To work correctly, please use metamask!')
@@ -75,8 +76,8 @@ class App extends Component {
     const fileReader = new window.FileReader()
     fileReader.readAsArrayBuffer(file)
     fileReader.onloadend = () => {
-      this.setState({buffer: Buffer(fileReader.result)})      
-    }    
+      this.setState({buffer: Buffer(fileReader.result)})
+    }
   }
 
   onSubmit = (event) => {
@@ -91,8 +92,8 @@ class App extends Component {
         console.error(error)
         return
       }
-      //storing file hash on blockchain      
-      this.state.contract.methods.set(fileHash).send({ from: this.state.account }).then((r) => {
+      //storing file hash on blockchain
+      this.state.contract.methods.setFileHash(fileHash).send({ from: this.state.account }).then((r) => {
         this.setState({fileHash})
       })
     })
