@@ -44,16 +44,16 @@ truffle(development)> const fileshandler = await FilesHandler.deployed()
 ```
 You can store hash of file to blockchain using contracts set function:
 ```javascript
-truffle(development)> result = fileshandler.set('test123')
+truffle(development)> result = fileshandler.setFileHash('filehash123')
 ```
 To get the hash of file stored on blockchain you can type:
 ```javascript
-truffle(development)> const filehash = await fileshandler.get()
+truffle(development)> const filehash = await fileshandler.getFileHash()
 ```
 You needed to type constant as command to get value stored in it:
 ```javascript
 truffle(development)> filehash
-'test123'
+'filehash123'
 ```
 
 **To run tests defined in folder /test run from shell command**  
