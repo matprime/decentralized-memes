@@ -23,6 +23,11 @@ contract FilesHandler {
 		return (memes[creator].ipfsHash);
 	}
 
+	function getMeme() public view returns(string memory ipfsHash, uint vote) {
+		address creator = msg.sender;
+	  return (memes[creator].ipfsHash, memes[creator].votes);
+	}
+
 	function setFileHash(string memory _fileHash) public {
 		fileHash = _fileHash;
 	}
