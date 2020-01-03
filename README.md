@@ -1,7 +1,7 @@
-# Demonstration how to store files online (decentralized)
+# Meme of the day dApp (decentralized)
 
 
-Demonstration application will be created using Ethereum blockchain and IPFS Interplanetary File System. Frontend of application will be run in web browser window, where it will be possible to interact with application. 
+Demonstration dApp is created using Ethereum blockchain and IPFS Interplanetary File System. Frontend of dApp is running in web browser window, where it possible to interact with dApp. 
 
 You will be able to select a file from your computer and upload it to IPFS. Information where on IPFS file resides will be stored in Ethereum blockchain. Application is simulating simple "Meme of the day" functionality. Users will be able to upload memes and vote for memes. Application will be showing top voted memes, possiblity to upload meme and possibility to vote on any meme stored on IPFS.
 
