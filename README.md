@@ -1,7 +1,7 @@
-# Demonstration how to store files online (decentralized)
+# Meme of the day dApp (decentralized)
 
 
-Demonstration application will be created using Ethereum blockchain and IPFS Interplanetary File System. Frontend of application will be run in web browser window, where it will be possible to interact with application. 
+Demonstration dApp is created using Ethereum blockchain and IPFS Interplanetary File System. Frontend of dApp is running in web browser window, where it possible to interact with dApp. 
 
 You will be able to select a file from your computer and upload it to IPFS. Information where on IPFS file resides will be stored in Ethereum blockchain. Application is simulating simple "Meme of the day" functionality. Users will be able to upload memes and vote for memes. Application will be showing top voted memes, possiblity to upload meme and possibility to vote on any meme stored on IPFS.
 
@@ -44,16 +44,16 @@ truffle(development)> const fileshandler = await FilesHandler.deployed()
 ```
 You can store hash of file to blockchain using contracts set function:
 ```javascript
-truffle(development)> result = fileshandler.set('test123')
+truffle(development)> result = fileshandler.setFileHash('filehash123')
 ```
 To get the hash of file stored on blockchain you can type:
 ```javascript
-truffle(development)> const filehash = await fileshandler.get()
+truffle(development)> const filehash = await fileshandler.getFileHash()
 ```
 You needed to type constant as command to get value stored in it:
 ```javascript
 truffle(development)> filehash
-'test123'
+'filehash123'
 ```
 
 **To run tests defined in folder /test run from shell command**  
