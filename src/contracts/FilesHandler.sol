@@ -10,6 +10,14 @@ contract FilesHandler {
 
 	mapping (address => Meme) private memes;
 
+	function setFileHash(string memory _fileHash) public {
+		fileHash = _fileHash;
+	}
+
+	function getFileHash() public view returns(string memory) {
+		return fileHash;
+	}
+
   function createMeme(string memory _ipfsHash) public {
 		address creator = msg.sender;
 		Meme memory newMeme;
@@ -28,11 +36,9 @@ contract FilesHandler {
 	  return (memes[creator].ipfsHash, memes[creator].votes);
 	}
 
-	function setFileHash(string memory _fileHash) public {
-		fileHash = _fileHash;
+	function addSelfVote() public {
+	  address creator = msg.sender;
+		memes[creator].votes++;
 	}
 
-	function getFileHash() public view returns(string memory) {
-		return fileHash;
-	}
 }
