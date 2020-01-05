@@ -3,7 +3,7 @@
 
 Demonstration dApp is created using Ethereum blockchain and IPFS Interplanetary File System. Frontend of dApp is running in web browser window, where it possible to interact with dApp. 
 
-You will be able to select a file from your computer and upload it to IPFS. Information where on IPFS file resides will be stored in Ethereum blockchain. Application is simulating simple "Meme of the day" functionality. Users will be able to upload memes and vote for memes. Application will be showing top voted memes, possiblity to upload meme and possibility to vote on any meme stored on IPFS.
+You will be able to select a file/meme from your computer and upload it to IPFS. Information where on IPFS file/meme resides will be stored in Ethereum blockchain as hash from IPFS (hash of file/meme when it was generated on IPFS). Application is simulating "Meme of the day" functionality. Users of dApp will be able to upload memes and vote for memes. Application will be showing top voted memes, possiblity to upload meme and possibility to vote on memes.
 
 **Dependencies are:**
 - Node.js 10.1x.x
@@ -25,7 +25,7 @@ cd decentralized-memes
 npm install
 npm run start
 ```
-Before starting the application with last command "npm run start" you need to make sure that Ganache is running before. Please look into Ganache manual, how to start it. After Ganache is running and you started application, you should see web browser to open up and application will load in browser window.
+Before starting the application with last command "npm run start" you need to make sure that Ganache is running. Please look into Ganache manual, how to start it (you need to change permission on file donwloaded to be executable, to be able to run it). After Ganache is running and you started application, you should see web browser open up and application will load and show the latest meme uploaded in browser window.
 
 **Command to migrate smart contract to blockchain**
 ```shell
