@@ -31,7 +31,7 @@ contract FilesHandler {
 		return (memes[creator].ipfsHash);
 	}
 
-	function getMeme() public view returns(string memory ipfsHash, uint vote) {
+	function getMeme() public view returns(string memory ipfsHash, uint votes) {
 		address creator = msg.sender;
 	  return (memes[creator].ipfsHash, memes[creator].votes);
 	}
@@ -39,6 +39,11 @@ contract FilesHandler {
 	function addSelfVote() public {
 	  address creator = msg.sender;
 		memes[creator].votes++;
+	}
+
+	function getVotes() public view returns(uint votes) {
+		address creator = msg.sender;
+		return (memes[creator].votes);
 	}
 
 }

@@ -37,13 +37,24 @@ contract('FilesHandler', (accounts) => {
 	//test if meme setter and getter are working in contract
 	describe('meme storage access', async () => {
 		it('Meme hash saved and retrieved', async () => {
-			let fileHash
-			fileHash = 'meme123'
+			let memeHash
+			memeHash = 'meme123'
 			console.log('Saving and retrieveing from Blockhain')
-			await filesHandler.createMeme(fileHash)
+			await filesHandler.createMeme(memeHash)
 			const result = await filesHandler.getMemeHash()
 			console.log(result)
-			assert.equal(result, fileHash)
+			assert.equal(result, memeHash)
+		})
+	})
+
+	//test if meme self/creator voting is working
+	describe('meme self voting', async () => {
+		it('Meme owner/self voting successfull', async () => {
+			console.log('Self voting of meme')
+			await filesHandler.addSelfVote()
+			const result = await filesHandler.getVotes()
+			console.log(result)
+			assert.equal(result, 1)
 		})
 	})
 
