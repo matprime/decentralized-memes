@@ -2,32 +2,32 @@ pragma solidity 0.5.0;
 
 contract MemesHandler {
 
-  struct EntityStruct {
-    uint entityData;
-    bool isEntity;
+  struct MemeStruct {
+    uint memeHash;
+    bool isMeme;
   }
 
-  mapping(address => EntityStruct) public entityStructs;
-  address[] public entityList;
+  mapping(address => MemeStruct) public memeStructs;
+  address[] public memesList;
 
-  function isEntity(address entityAddress) public view returns(bool isIndeed) {
-      return entityStructs[entityAddress].isEntity;
+  function isMeme(address memeAddress) public view returns(bool isIndeed) {
+      return memeStructs[memeAddress].isMeme;
   }
 
-  function getEntityCount() public view returns(uint entityCount) {
-    return entityList.length;
+  function getMemesCount() public view returns(uint memesCount) {
+    return memesList.length;
   }
 
-  function newEntity(address entityAddress, uint entityData) public returns(uint rowNumber) {
-    if(isEntity(entityAddress)) revert();
-    entityStructs[entityAddress].entityData = entityData;
-    entityStructs[entityAddress].isEntity = true;
-    return entityList.push(entityAddress) - 1;
+  function newMeme(address memeAddress, uint memeHash) public returns(uint rowNumber) {
+    if(isMeme(memeAddress)) revert();
+    memeStructs[memeAddress].memeHash = memeHash;
+    memeStructs[memeAddress].isMeme = true;
+    return memesList.push(memeAddress) - 1;
   }
 
-  function updateEntity(address entityAddress, uint entityData) public returns(bool success) {
-    if(!isEntity(entityAddress)) revert();
-    entityStructs[entityAddress].entityData    = entityData;
+  function updateEntity(address memeAddress, uint memeHash) public returns(bool success) {
+    if(!isMeme(memeAddress)) revert();
+    memeStructs[memeAddress].memeHash    = memeHash;
     return true;
   }
 }
