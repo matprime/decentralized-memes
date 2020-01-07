@@ -21,4 +21,18 @@ contract('MemesHandler', (accounts) => {
 		})
 	})
 
+	//test creation and retrieval of meme on blockchain is working
+	describe('meme creation and retrieval test', async () => {
+		it('Meme created and retrieved', async () => {
+			let ipfsHash
+			ipfsHash = 'memehash234'
+			const address = memesHandler.address
+			console.log('Creating meme and retrieveing it from Blockhain')
+			await memesHandler.newMeme(address, ipfsHash)
+			const result = await memesHandler.getMemeHash(address)
+			console.log(result)
+			assert.equal(result, ipfsHash)
+		})
+	})
+
 })
