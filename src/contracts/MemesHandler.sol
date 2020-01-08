@@ -22,6 +22,7 @@ contract MemesHandler {
   function newMeme(address _memeAddress, string memory _ipfsHash) public returns(uint rowNumber) {
     if(isMeme(_memeAddress)) revert();
     memeStructs[_memeAddress].ipfsHash = _ipfsHash;
+    memeStructs[_memeAddress].votes = 0;
     memeStructs[_memeAddress].isMeme = true;
     return memesList.push(_memeAddress) - 1;
   }
@@ -35,5 +36,16 @@ contract MemesHandler {
   function getMemeHash(address _memeAddress) public view returns(string memory ipfsHash) {
     if(!isMeme(_memeAddress)) revert();
     return memeStructs[_memeAddress].ipfsHash;
+  }
+
+  function addVote(address _memeAddress) public returns(bool success) {
+    if(!isMeme(_memeAddress)) revert();
+    memeStructs[_memeAddress].votes++;
+    return true;
+  }
+
+  function getVotes(address _memeAddress) public view returns(uint votes) {
+    if(!isMeme(_memeAddress)) revert();
+    return memeStructs[_memeAddress].votes;
   }
 }
