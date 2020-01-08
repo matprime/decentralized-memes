@@ -45,4 +45,18 @@ contract('MemesHandler', (accounts) => {
 		})
 	})
 
+	//test if updating of meme ipfshash on blockchain is working
+	describe('update of meme ipfshash test', async () => {
+		it('Memes ipfshash updated', async () => {
+			let ipfsHash
+			ipfsHash = 'memehash345'
+			const address = memesHandler.address
+			console.log('Updating memes ipfshash and retrieveing it from Blockhain')
+			await memesHandler.updateMeme(address, ipfsHash)
+			const result = await memesHandler.getMemeHash(address)
+			console.log(result)
+			assert.equal(result, ipfsHash)
+		})
+	})
+
 })
