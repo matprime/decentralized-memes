@@ -35,4 +35,14 @@ contract('MemesHandler', (accounts) => {
 		})
 	})
 
+	//test if counter of number of memes created on blockchain is working
+	describe('meme count retrieval test', async () => {
+		it('Meme count retrieved', async () => {
+			console.log('Retrieving meme count from Blockhain')
+			const result = await memesHandler.getMemesCount()
+			console.log(result)
+			assert.equal(result, 1)
+		})
+	})
+
 })
