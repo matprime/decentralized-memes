@@ -13,7 +13,8 @@ class App extends Component {
   //https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
   async componentWillMount() {
     await this.loadWeb3()
-    await this.initializeFile()
+    //await this.initializeFile()
+
   }
 
   // Get the account
@@ -109,7 +110,7 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Prime Memes
+            Meme Of The Day
           </a>
           <ul className="navbar-nav px-3">
             <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -138,6 +139,55 @@ class App extends Component {
             </main>
           </div>
         </div>
+
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <h2>Browse through uploaded memes and vote on them</h2>
+        <div className="container mt-5">
+          <div className="row">
+              <div className="col-sm">
+                <a
+                  href="http://"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                </a>
+              </div>
+
+              <div className="col-sm">
+                  <a
+                    href="http://"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                  </a>
+              </div>
+
+              <div className="col-sm">
+                  <a
+                    href="http://"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                  </a>
+              </div>
+
+              <div className="col-sm">
+                  <a
+                    href="http://"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                  </a>
+              </div>
+
+          </div>
+        </div>
+
       </div>
     );
   }
