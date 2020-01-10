@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
-import FilesHandler from '../abis/FilesHandler.json'
+//import FilesHandler from '../abis/FilesHandler.json'
+import MemesHandler from '../abis/MemesHandler.json'
 
 const ipfsClient = require('ipfs-http-client')
 // connect to public ipfs daemon API server
@@ -13,7 +14,7 @@ class App extends Component {
   //https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
   async componentWillMount() {
     await this.loadWeb3()
-    //await this.initializeFile()
+    await this.initialize()
 
   }
 
@@ -21,9 +22,7 @@ class App extends Component {
   // Get the network
   // Get Smart contract
   // Get File Hash
-
-  //get file hash from blockchain to show file when app starts
-  async initializeFile() {
+  async initialize() {
     const web3 = window.web3
     //https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#getaccounts
     const accounts = await web3.eth.getAccounts()
@@ -31,18 +30,18 @@ class App extends Component {
     this.setState({ account: accounts[0]})
     const networkId = await web3.eth.net.getId()
     console.log('Metamask is connected to: ' + networkId)
-    const networkData = FilesHandler.networks[networkId]
+    const networkData = MemesHandler.networks[networkId]
     if (networkData) {
       //fetching the contract
-      const abi = FilesHandler.abi
+      const abi = MemesHandler.abi
       const address = networkData.address
       const contract = web3.eth.Contract(abi, address)
-      this.setState({contract})
+      this.setState({contract: contract})
       console.log(contract)
       //calling get function from smart contract
-      const fileHash = await contract.methods.getFileHash().call()
-      console.log("File hash: " + fileHash)
-      this.setState({fileHash})
+      //const fileHash = await contract.methods.getFileHash().call()
+      //console.log("File hash: " + fileHash)
+      //this.setState({fileHash})
     } else {
       window.alert('Smart contract was not deployed to connected network!');
     }
@@ -54,7 +53,7 @@ class App extends Component {
       account: '',
       buffer : null,
       contract: null,
-      fileHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM'
+      memeHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM'
     };
   }
 
@@ -69,9 +68,8 @@ class App extends Component {
     }
   }
 
-  captureFile = (event) => {
+  captureMeme = (event) => {
     event.preventDefault()
-    console.log('meme uploaded...')
     // file processing for store to IPFS
     const file = event.target.files[0]
     const fileReader = new window.FileReader()
@@ -79,6 +77,7 @@ class App extends Component {
     fileReader.onloadend = () => {
       this.setState({buffer: Buffer(fileReader.result)})
     }
+    console.log('meme uploaded...')
   }
 
   onSubmit = (event) => {
@@ -87,15 +86,16 @@ class App extends Component {
     //IPFS: http://ipfs.infura.io/ipfs/QmWERhDH1PLhYAeRLQQ8Cc9ykmi8XUvsBeEXgZcwQ3fAuL
     ipfs.add(this.state.buffer, (error, result) => {
       console.log('Ipfs result', result)
-      const fileHash = result[0].hash
-      this.setState({fileHash})
+      const memeHash = result[0].hash
+      //this.setState({memeHash})
       if(error) {
         console.error(error)
         return
       }
-      //storing file hash on blockchain
-      this.state.contract.methods.setFileHash(fileHash).send({ from: this.state.account }).then((r) => {
-        this.setState({fileHash})
+      //storing meme with hash on blockchain
+      console.log('Meme will be stored with account: ' + this.state.account);
+      this.state.contract.methods.newMeme(this.state.account, memeHash).send({ from: this.state.account }).then((r) => {
+        this.setState({memeHash: memeHash})
       })
     })
   }
@@ -127,12 +127,12 @@ class App extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                  <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
                 </a>
                 <p>&nbsp;</p>
                 <h2>Select your meme and upload it</h2>
                 <form onSubmit={this.onSubmit}>
-                <input type='file' onChange={this.captureFile} />
+                <input type='file' onChange={this.captureMeme} />
                 <input type='submit' value="Upload meme"/>
                 </form>
               </div>
@@ -151,7 +151,7 @@ class App extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                  <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
                 </a>
               </div>
 
@@ -161,7 +161,7 @@ class App extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
                   </a>
               </div>
 
@@ -171,7 +171,7 @@ class App extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
                   </a>
               </div>
 
@@ -181,7 +181,7 @@ class App extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img src={`https://ipfs.infura.io/ipfs/${this.state.fileHash}`}/>
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
                   </a>
               </div>
 

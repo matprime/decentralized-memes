@@ -1,5 +1,5 @@
-const MemesHandler = artifacts.require("MemesHandler");
+const FilesHandler = artifacts.require("FilesHandler");
 
 module.exports = function(deployer) {
-  deployer.deploy(MemesHandler);
+  deployer.deploy(FilesHandler);
 };

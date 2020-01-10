@@ -19,12 +19,12 @@ contract MemesHandler {
     return memesList.length;
   }
 
-  function newMeme(address _memeAddress, string memory _ipfsHash) public returns(uint rowNumber) {
-    if(isMeme(_memeAddress)) revert();
-    memeStructs[_memeAddress].ipfsHash = _ipfsHash;
-    memeStructs[_memeAddress].votes = 0;
-    memeStructs[_memeAddress].isMeme = true;
-    return memesList.push(_memeAddress) - 1;
+  function newMeme(string memory _ipfsHash) public returns(uint rowNumber) {
+    address creator = msg.sender;
+    memeStructs[creator].ipfsHash = _ipfsHash;
+    memeStructs[creator].votes = 0;
+    memeStructs[creator].isMeme = true;
+    return memesList.push(creator) - 1;
   }
 
   function updateMeme(address _memeAddress, string memory _ipfsHash) public returns(bool success) {

@@ -47,7 +47,7 @@ contract('FilesHandler', (accounts) => {
 		})
 	})
 
-	//test if meme self/creator voting is working
+	//test if meme self voting for is working
 	describe('meme self voting', async () => {
 		it('Meme owner/self voting successfull', async () => {
 			console.log('Self voting of meme')
