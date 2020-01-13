@@ -19,6 +19,10 @@ contract MemesHandler {
     return memesList.length;
   }
 
+  function getMemesList() public view returns(address[] memory memes) {
+    return memesList;
+  }
+
   function newMeme(string memory _ipfsHash) public returns(uint rowNumber) {
     address creator = msg.sender;
     memeStructs[creator].ipfsHash = _ipfsHash;
@@ -27,13 +31,18 @@ contract MemesHandler {
     return memesList.push(creator) - 1;
   }
 
+  function getMemeByIndex(uint _index) public view returns(string memory ipfsHash) {
+    if(!isMeme(memesList[_index])) revert();
+    return memeStructs[memesList[_index]].ipfsHash;
+  }
+
   function updateMeme(address _memeAddress, string memory _ipfsHash) public returns(bool success) {
     if(!isMeme(_memeAddress)) revert();
     memeStructs[_memeAddress].ipfsHash = _ipfsHash;
     return true;
   }
 
-  function getMemeHash(address _memeAddress) public view returns(string memory ipfsHash) {
+  function getMemeByAddress(address _memeAddress) public view returns(string memory ipfsHash) {
     if(!isMeme(_memeAddress)) revert();
     return memeStructs[_memeAddress].ipfsHash;
   }

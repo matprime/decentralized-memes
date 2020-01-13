@@ -42,6 +42,21 @@ class App extends Component {
       //const fileHash = await contract.methods.getFileHash().call()
       //console.log("File hash: " + fileHash)
       //this.setState({fileHash})
+      const memesCount = await contract.methods.getMemesCount().call()
+      console.log('count of stored memes: ' + memesCount)
+      let ipfsHash ='';
+      for (let i= 0; i < memesCount; i++) {
+        ipfsHash = await contract.methods.getMemeByIndex(i).call()
+        console.log('ipfsHash of ' + i + ' meme: ' + ipfsHash)
+        this.state.stored.push(ipfsHash)
+        this.state.stored.push('test')
+        console.log('new state: ' + this.state.stored[0])
+        console.log('new state: ' + this.state.stored[1])
+      }
+      //const memesList = await contract.methods.getMemesList().call()
+      //console.log(memesList)
+      //memesList.forEach(meme => console.log(meme))
+
     } else {
       window.alert('Smart contract was not deployed to connected network!');
     }
@@ -53,7 +68,8 @@ class App extends Component {
       account: '',
       buffer : null,
       contract: null,
-      memeHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM'
+      memeHash: 'QmNP2xz4PkPXZwaUyzC9tyDdTjEpET1D3vW1CdwNQdyTdM',
+      stored: []
     };
   }
 
@@ -77,7 +93,7 @@ class App extends Component {
     fileReader.onloadend = () => {
       this.setState({buffer: Buffer(fileReader.result)})
     }
-    console.log('meme uploaded...')
+    console.log('meme uploaded to browser cache...')
   }
 
   onSubmit = (event) => {
@@ -87,14 +103,15 @@ class App extends Component {
     ipfs.add(this.state.buffer, (error, result) => {
       console.log('Ipfs result', result)
       const memeHash = result[0].hash
-      //this.setState({memeHash})
+      this.setState({memeHash})
       if(error) {
         console.error(error)
         return
       }
       //storing meme with hash on blockchain
       console.log('Meme will be stored with account: ' + this.state.account);
-      this.state.contract.methods.newMeme(this.state.account, memeHash).send({ from: this.state.account }).then((r) => {
+      console.log(memeHash)
+      this.state.contract.methods.newMeme(memeHash).send({ from: this.state.account }).then((r) => {
         this.setState({memeHash: memeHash})
       })
     })
@@ -151,7 +168,7 @@ class App extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
+                  <img src={`https://ipfs.infura.io/ipfs/${this.state.stored[0]}`}/>
                 </a>
               </div>
 
@@ -161,7 +178,7 @@ class App extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.stored[1]}`}/>
                   </a>
               </div>
 
@@ -171,7 +188,7 @@ class App extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.stored[2]}`}/>
                   </a>
               </div>
 
@@ -181,7 +198,7 @@ class App extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img src={`https://ipfs.infura.io/ipfs/${this.state.memeHash}`}/>
+                    <img src={`https://ipfs.infura.io/ipfs/${this.state.stored[3]}`}/>
                   </a>
               </div>
 
