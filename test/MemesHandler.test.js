@@ -22,17 +22,17 @@ contract('MemesHandler', (accounts) => {
 	})
 
 	//test creation and retrieval of meme on blockchain is working
-	//describe('meme creation and retrieval test', async () => {
-	//	it('Meme created and retrieved', async () => {
-	//		let ipfsHash
-	//		ipfsHash = 'memehash234'
-	//		console.log('Creating meme and retrieveing it from Blockhain')
-	//		await memesHandler.newMeme(ipfsHash)
-	//		const result = await memesHandler.getMemeHash(address)
-	//		console.log(result)
-	//		assert.equal(result, ipfsHash)
-	//	})
-	//})
+	describe('meme creation and retrieval test', async () => {
+		it('Meme created and retrieved', async () => {
+			let ipfsHash
+			ipfsHash = 'memehash234'
+			console.log('Creating meme and retrieveing it from Blockhain')
+			await memesHandler.newMeme(ipfsHash)
+			const result = await memesHandler.getMemeHash(accounts[0])
+			console.log(result)
+			assert.equal(result, ipfsHash)
+		})
+	})
 
 	//test if counter of number of memes created on blockchain is working
 	//describe('meme count retrieval test', async () => {
