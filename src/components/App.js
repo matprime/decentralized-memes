@@ -21,7 +21,7 @@ class App extends Component {
   // Get the account
   // Get the network
   // Get Smart contract
-  // Get File Hash
+  // Get memes hashes
   async initialize() {
     const web3 = window.web3
     //https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#getaccounts
@@ -48,9 +48,14 @@ class App extends Component {
       for (let i= 0; i < memesCount; i++) {
         ipfsHash = await contract.methods.getMemeByIndex(i).call()
         console.log('ipfsHash of ' + i + ' meme: ' + ipfsHash)
-        this.state.stored.push(ipfsHash)
-        //console.log('new state: ' + this.state.stored[0])
-        //console.log('new state: ' + this.state.stored[1])
+        //special code for writting to array of React's state object
+        this.setState(state => {
+          const stored = state.stored.concat(ipfsHash);
+
+          return {
+            stored,
+          };
+        });
         console.log('Stored memes: ' + this.state.stored)
       }
       //const memesList = await contract.methods.getMemesList().call()
@@ -114,8 +119,15 @@ class App extends Component {
       this.state.contract.methods.newMeme(memeHash).send({ from: this.state.account }).then((r) => {
         console.log('inside of contract function call')
         this.setState({memeHash: memeHash})
-      })            
-      this.state.stored.push(memeHash)
+      })
+      //special code for writting to array of React's state object
+      this.setState(state => {
+        const stored = state.stored.concat(memeHash);
+
+        return {
+          stored,
+        };
+      });
       console.log('stored memes: ' + this.state.stored)
     })
   }
