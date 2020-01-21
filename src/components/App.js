@@ -49,9 +49,9 @@ class App extends Component {
         ipfsHash = await contract.methods.getMemeByIndex(i).call()
         console.log('ipfsHash of ' + i + ' meme: ' + ipfsHash)
         this.state.stored.push(ipfsHash)
-        this.state.stored.push('test')
-        console.log('new state: ' + this.state.stored[0])
-        console.log('new state: ' + this.state.stored[1])
+        //console.log('new state: ' + this.state.stored[0])
+        //console.log('new state: ' + this.state.stored[1])
+        console.log('Stored memes: ' + this.state.stored)
       }
       //const memesList = await contract.methods.getMemesList().call()
       //console.log(memesList)
@@ -112,8 +112,11 @@ class App extends Component {
       console.log('Meme will be stored with account: ' + this.state.account);
       console.log(memeHash)
       this.state.contract.methods.newMeme(memeHash).send({ from: this.state.account }).then((r) => {
+        console.log('inside of contract function call')
         this.setState({memeHash: memeHash})
-      })
+      })            
+      this.state.stored.push(memeHash)
+      console.log('stored memes: ' + this.state.stored)
     })
   }
 

@@ -25,10 +25,11 @@ contract MemesHandler {
 
   function newMeme(string memory _ipfsHash) public returns(uint rowNumber) {
     address creator = msg.sender;
+    if(isMeme(creator)) revert();
     memeStructs[creator].ipfsHash = _ipfsHash;
     memeStructs[creator].votes = 0;
     memeStructs[creator].isMeme = true;
-    return memesList.push(creator) - 1;
+    memesList.push(creator) - 1;
   }
 
   function getMemeByIndex(uint _index) public view returns(string memory ipfsHash) {
